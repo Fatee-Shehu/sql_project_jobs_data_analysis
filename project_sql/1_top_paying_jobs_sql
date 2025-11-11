@@ -1,1 +1,22 @@
--- delete you later
+/*
+-- question 1: what are the top paying data analyst job
+--   identify the 10 highest paying data analyst job available remotely
+--process on job postings with specified salarie, salary is not null
+--this offers an insight into the top paying oportunities for data analyst
+*/
+select job_id,
+       job_title,
+       job_location,
+       job_schedule_type,
+       job_posted_date,
+       salary_year_avg,
+       company_dim.company_id,
+       name as company_name
+from job_postings_fact
+left JOIN company_dim on job_postings_fact.company_id = company_dim.company_id
+WHERE
+      job_title_short = 'Data Analyst' AND
+      job_location = 'Anywhere' AND
+      salary_year_avg is NOT NULL
+order by salary_year_avg desc
+limit 10;
